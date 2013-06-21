@@ -3875,7 +3875,79 @@ def addNodes(nodes, node_tree, group_mode = False):
     global node_message
     global osl_scripts
     global node_groups
-    
+
+    blender267 = {
+        "ADD_SHADER": "ShaderNodeAddShader",
+        "AMBIENT_OCCLUSION": "ShaderNodeAmbientOcclusion",
+        "ATTRIBUTE": "ShaderNodeAttribute",
+        "BACKGROUND": "ShaderNodeBackground",
+        "BRIGHTCONTRAST": "ShaderNodeBrightContrast",
+        "BSDF_ANISOTROPIC": "ShaderNodeBsdfAnisotropic",
+        "BSDF_DIFFUSE": "ShaderNodeBsdfDiffuse",
+        "BSDF_GLASS": "ShaderNodeBsdfGlass",
+        "BSDF_GLOSSY": "ShaderNodeBsdfGlossy",
+        "BSDF_REFRACTION": "ShaderNodeBsdfRefraction",
+        "BSDF_TRANSLUCENT": "ShaderNodeBsdfTranslucent",
+        "BSDF_TRANSPARENT": "ShaderNodeBsdfTransparent",
+        "BSDF_VELVET": "ShaderNodeBsdfVelvet",
+        "BUMP": "ShaderNodeBump",
+        "CAMERA": "ShaderNodeCameraData",
+        "COMBRGB": "ShaderNodeCombineRGB",
+        "CURVE_RGB": "ShaderNodeRGBCurve",
+        "CURVE_VEC": "ShaderNodeVectorCurve",
+        "EMISSION": "ShaderNodeEmission",
+        "FRESNEL": "ShaderNodeFresnel",
+        "GAMMA": "ShaderNodeGamma",
+        "GEOMETRY": "ShaderNodeGeometry",
+        "GROUP": "ShaderNodeGroup",
+        "HAIR_INFO": "ShaderNodeHairInfo",
+        "HOLDOUT": "ShaderNodeHoldout",
+        "HUE_SAT": "ShaderNodeHueSaturation",
+        "INVERT": "ShaderNodeInvert",
+        "LAYER_WEIGHT": "ShaderNodeLayerWeight",
+        "LIGHT_FALLOFF": "ShaderNodeLightFalloff",
+        "LIGHT_PATH": "ShaderNodeLightPath",
+        "MAPPING": "ShaderNodeMapping",
+        "MATERIAL": "ShaderNodeMaterial",
+        "MATERIAL_EXT": "ShaderNodeExtendedMaterial",
+        "MATH": "ShaderNodeMath",
+        "MIX_RGB": "ShaderNodeMixRGB",
+        "MIX_SHADER": "ShaderNodeMixShader",
+        "NEW_GEOMETRY": "ShaderNodeNewGeometry",
+        "NORMAL": "ShaderNodeNormal",
+        "NORMAL_MAP": "ShaderNodeNormalMap",
+        "OBJECT_INFO": "ShaderNodeObjectInfo",
+        "OUTPUT": "ShaderNodeOutput",
+        "OUTPUT_LAMP": "ShaderNodeOutputLamp",
+        "OUTPUT_MATERIAL": "ShaderNodeOutputMaterial",
+        "OUTPUT_WORLD": "ShaderNodeOutputWorld",
+        "PARTICLE_INFO": "ShaderNodeParticleInfo",
+        "RGB": "ShaderNodeRGB",
+        "RGBTOBW": "ShaderNodeRGBToBW",
+        "SCRIPT": "ShaderNodeScript",
+        "SEPRGB": "ShaderNodeSeparateRGB",
+        "SQUEEZE": "ShaderNodeSqueeze",
+        "SUBSURFACE_SCATTERING": "ShaderNodeSubsurfaceScattering",
+        "TANGENT": "ShaderNodeTangent",
+        "TEXTURE": "ShaderNodeTexture",
+        "TEX_BRICK": "ShaderNodeTexBrick",
+        "TEX_CHECKER": "ShaderNodeTexChecker",
+        "TEX_COORD": "ShaderNodeTexCoord",
+        "TEX_ENVIRONMENT": "ShaderNodeTexEnvironment",
+        "TEX_GRADIENT": "ShaderNodeTexGradient",
+        "TEX_IMAGE": "ShaderNodeTexImage",
+        "TEX_MAGIC": "ShaderNodeTexMagic",
+        "TEX_MUSGRAVE": "ShaderNodeTexMusgrave",
+        "TEX_NOISE": "ShaderNodeTexNoise",
+        "TEX_SKY": "ShaderNodeTexSky",
+        "TEX_VORONOI": "ShaderNodeTexVoronoi",
+        "TEX_WAVE": "ShaderNodeTexWave",
+        "VALTORGB": "ShaderNodeValToRGB",
+        "VALUE": "ShaderNodeValue",
+        "VECT_MATH": "ShaderNodeVectorMath"
+
+    }
+
     for dom_node in nodes:
         node_type = dom_node.attributes['type'].value
         loc = dom_node.attributes['loc'].value
@@ -3889,30 +3961,30 @@ def addNodes(nodes, node_tree, group_mode = False):
         # store their values as their output's default value!
         if node_type == "ATTRIBUTE":
             print ("ATTRIBUTE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.attribute_name = node_data['attribute'].value
         
         elif node_type == "CAMERA":
             print ("CAMERA")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "FRESNEL":
             print ("FRESNEL")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['IOR'].default_value = float(node_data['ior'].value)
                 
         elif node_type == "LAYER_WEIGHT":
             print ("LAYER_WEIGHT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Blend'].default_value = float(node_data['blend'].value)
                 
         elif node_type == "LIGHT_PATH":
             print ("LIGHT_PATH")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "NEW_GEOMETRY":
             print ("NEW_GEOMETRY")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "HAIR_INFO":
             if bpy.app.version[0] + (bpy.app.version[1] / 100.0) < 2.66:
@@ -3921,19 +3993,19 @@ This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
             print ("HAIR_INFO")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "OBJECT_INFO":
             print ("OBJECT_INFO")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "PARTICLE_INFO":
             print ("PARTICLE_INFO")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "RGB":
             print ("RGB")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.outputs['Color'].default_value = color(node_data['color'].value)
         
         elif node_type == "TANGENT":
@@ -3943,38 +4015,38 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.direction_type = node_data['direction'].value
             node.axis = node_data['axis'].value
         
         elif node_type == "TEX_COORD":
             print ("TEX_COORD")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             if bpy.app.version[0] + (bpy.app.version[1] / 100.0) > 2.64 and "dupli" in node_data:
                 node.from_dupli = boolean(node_data['dupli'].value)
         
         elif node_type == "VALUE":
             print ("VALUE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.outputs['Value'].default_value = float(node_data['value'].value)
             
             #OUTPUT TYPES
         elif node_type == "OUTPUT_LAMP":
             print ("OUTPUT_LAMP")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "OUTPUT_MATERIAL":
             print ("OUTPUT_MATERIAL")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "OUTPUT_WORLD":
             print ("OUTPUT_WORLD")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
             #SHADER TYPES
         elif node_type == "ADD_SHADER":
             print ("ADD_SHADER")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             
         elif node_type == "AMBIENT_OCCLUSION":
             print ("AMBIENT_OCCLUSION")
@@ -3983,12 +4055,12 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
         
         elif node_type == "BACKGROUND":
             print ("BACKGROUND")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Strength'].default_value = float(node_data['strength'].value)
             
@@ -3999,7 +4071,7 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Roughness'].default_value = float(node_data['roughness'].value)
             node.inputs['Anisotropy'].default_value = float(node_data['anisotropy'].value)
@@ -4007,13 +4079,13 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "BSDF_DIFFUSE":
             print ("BSDF_DIFFUSE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Roughness'].default_value = float(node_data['roughness'].value)
         
         elif node_type == "BSDF_GLASS":
             print ("BSDF_GLASS")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.distribution = node_data['distribution'].value
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Roughness'].default_value = float(node_data['roughness'].value)
@@ -4021,7 +4093,7 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "BSDF_GLOSSY":
             print ("BSDF_GLOSSY")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.distribution = node_data['distribution'].value
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Roughness'].default_value = float(node_data['roughness'].value)
@@ -4033,7 +4105,7 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.distribution = node_data['distribution'].value
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Roughness'].default_value = float(node_data['roughness'].value)
@@ -4041,39 +4113,39 @@ You may need a newer version of Blender for this material to work properly.""" %
         
         elif node_type == "BSDF_TRANSLUCENT":
             print ("BSDF_TRANSLUCENT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
         
         elif node_type == "BSDF_TRANSPARENT":
             print ("BSDF_TRANSPARENT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
         
         elif node_type == "BSDF_VELVET":
             print ("BSDF_VELVET")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Sigma'].default_value = float(node_data['sigma'].value)
         
         elif node_type == "EMISSION":
             print ("EMISSION")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Strength'].default_value = float(node_data['strength'].value)
         
         elif node_type == "HOLDOUT":
             print ("HOLDOUT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "MIX_SHADER":
             print ("MIX_SHADER")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Fac'].default_value = float(node_data['fac'].value)
         
             #TEXTURE TYPES
         elif node_type == "TEX_BRICK":
             print ("TEX_BRICK")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.offset = float(node_data['offset'].value)
             node.offset_frequency = float(node_data['offset_freq'].value)
             node.squash = float(node_data['squash'].value)
@@ -4089,14 +4161,14 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "TEX_CHECKER":
             print ("TEX_CHECKER")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color1'].default_value = color(node_data['color1'].value)
             node.inputs['Color2'].default_value = color(node_data['color2'].value)
             node.inputs['Scale'].default_value = float(node_data['scale'].value)
             
         elif node_type == "TEX_ENVIRONMENT":
             print ("TEX_ENVIRONMENT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.color_space = node_data['color_space'].value
             node.projection = node_data['projection'].value
             if 'image' in node_data:
@@ -4188,12 +4260,12 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "TEX_GRADIENT":
             print ("TEX_GRADIENT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.gradient_type = node_data['gradient'].value
         
         elif node_type == "TEX_IMAGE":
             print ("TEX_IMAGE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.color_space = node_data['color_space'].value
             if "projection" in node_data:
                 node.projection = node_data['projection'].value
@@ -4286,14 +4358,14 @@ You may need a newer version of Blender for this material to work properly.""" %
                 
         elif node_type == "TEX_MAGIC":
             print ("TEX_MAGIC")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.turbulence_depth = int(node_data['depth'].value)
             node.inputs['Scale'].default_value = float(node_data['scale'].value)
             node.inputs['Distortion'].default_value = float(node_data['distortion'].value)
         
         elif node_type == "TEX_MUSGRAVE":
             print ("TEX_MUSGRAVE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.musgrave_type = node_data['musgrave'].value
             node.inputs['Scale'].default_value = float(node_data['scale'].value)
             node.inputs['Detail'].default_value = float(node_data['detail'].value)
@@ -4304,26 +4376,26 @@ You may need a newer version of Blender for this material to work properly.""" %
         
         elif node_type == "TEX_NOISE":
             print ("TEX_NOISE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Scale'].default_value = float(node_data['scale'].value)
             node.inputs['Detail'].default_value = float(node_data['detail'].value)
             node.inputs['Distortion'].default_value = float(node_data['distortion'].value)
                         
         elif node_type == "TEX_SKY":
             print ("TEX_SKY")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.sun_direction = vector(node_data['sun_direction'].value)
             node.turbidity = float(node_data['turbidity'].value)
         
         elif node_type == "TEX_VORONOI":
             print ("TEX_VORONOI")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.coloring = node_data['coloring'].value
             node.inputs['Scale'].default_value = float(node_data['scale'].value)
         
         elif node_type == "TEX_WAVE":
             print ("TEX_WAVE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.wave_type = node_data['wave'].value
             node.inputs['Scale'].default_value = float(node_data['scale'].value)
             node.inputs['Distortion'].default_value = float(node_data['distortion'].value)
@@ -4333,7 +4405,7 @@ You may need a newer version of Blender for this material to work properly.""" %
             #COLOR TYPES
         elif node_type == "BRIGHTCONTRAST":
             print ("BRIGHTCONTRAST")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Bright'].default_value = float(node_data['bright'].value)
             node.inputs['Contrast'].default_value = float(node_data['contrast'].value)
@@ -4345,7 +4417,7 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Fac'].default_value = float(node_data['fac'].value)
             node.inputs['Color'].default_value = color(node_data['color'].value)
             if group_mode:
@@ -4413,13 +4485,13 @@ You may need a newer version of Blender for this material to work properly.""" %
         
         elif node_type == "GAMMA":
             print ("GAMMA")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
             node.inputs['Gamma'].default_value = float(node_data['gamma'].value)
         
         elif node_type == "HUE_SAT":
             print ("HUE_SAT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Hue'].default_value = float(node_data['hue'].value)
             node.inputs['Saturation'].default_value = float(node_data['saturation'].value)
             node.inputs['Value'].default_value = float(node_data['value'].value)
@@ -4428,19 +4500,19 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "INVERT":
             print ("INVERT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Fac'].default_value = float(node_data['fac'].value)
             node.inputs['Color'].default_value = color(node_data['color'].value)
         
         elif node_type == "LIGHT_FALLOFF":
             print ("LIGHT_FALLOFF")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Strength'].default_value = float(node_data['strength'].value)
             node.inputs['Smooth'].default_value = float(node_data['smooth'].value)
         
         elif node_type == "MIX_RGB":
             print ("MIX_RGB")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.blend_type = node_data['blend_type'].value
             if "use_clamp" in node_data:
                 node.use_clamp = boolean(node_data['use_clamp'].value)
@@ -4456,7 +4528,7 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs["Strength"].default_value = float(node_data['strength'].value)
             
         elif node_type == "CURVE_VEC":
@@ -4466,7 +4538,7 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Fac'].default_value = float(node_data['fac'].value)
             node.inputs['Vector'].default_value = vector(node_data['vector'].value)
             if group_mode:
@@ -4519,7 +4591,7 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "MAPPING":
             print ("MAPPING")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.translation = vector(node_data['translation'].value)
             node.rotation = vector(node_data['rotation'].value)
             node.scale = vector(node_data['scale'].value)
@@ -4533,7 +4605,7 @@ You may need a newer version of Blender for this material to work properly.""" %
         
         elif node_type == "NORMAL":
             print ("NORMAL")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.outputs['Normal'].default_value = vector(node_data['vector_output'].value)
             node.inputs['Normal'].default_value = vector(node_data['vector_input'].value)
             
@@ -4544,7 +4616,7 @@ You may need a newer version of Blender for this material to work properly.""" %
 This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly.""" % node_type]
                 return
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.space = node_data['space'].value
             node.uv_map = node_data['uv_map'].value
             node.inputs['Strength'].default_value = float(node_data['strength'].value)
@@ -4553,14 +4625,14 @@ You may need a newer version of Blender for this material to work properly.""" %
             #CONVERTOR TYPES
         elif node_type == "COMBRGB":
             print ("COMBRGB")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['R'].default_value = float(node_data['red'].value)
             node.inputs['G'].default_value = float(node_data['green'].value)
             node.inputs['B'].default_value = float(node_data['blue'].value)
         
         elif node_type == "MATH":
             print ("MATH")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.operation = node_data['operation'].value
             if "use_clamp" in node_data:
                 node.use_clamp = boolean(node_data['use_clamp'].value)
@@ -4569,17 +4641,17 @@ You may need a newer version of Blender for this material to work properly.""" %
         
         elif node_type == "RGBTOBW":
             print ("RGBTOBW")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Color'].default_value = color(node_data['color'].value)
         
         elif node_type == "SEPRGB":
             print ("SEPRGB")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.inputs['Image'].default_value = color(node_data['image'].value)
         
         elif node_type == "VALTORGB":
             print ("VALTORGB")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.color_ramp.interpolation = node_data['interpolation'].value
             node.inputs['Fac'].default_value = float(node_data['fac'].value)
             
@@ -4603,7 +4675,7 @@ You may need a newer version of Blender for this material to work properly.""" %
             
         elif node_type == "VECT_MATH":
             print ("VECT_MATH")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.operation = node_data['operation'].value
             node.inputs[0].default_value = vector(node_data['vector1'].value)
             node.inputs[1].default_value = vector(node_data['vector2'].value)
@@ -4615,11 +4687,11 @@ You may need a newer version of Blender for this material to work properly.""" %
             #unable to add FRAME nodes. Was fixed with r51926.
             if bpy.app.version[0] + (bpy.app.version[1] / 100.0) >= 2.65:
                 print("FRAME")
-                node = node_tree.nodes.new(node_type)
+                node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "REROUTE":
             print ("REROUTE")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
         
         elif node_type == "SCRIPT":
             if bpy.app.version[0] + (bpy.app.version[1] / 100.0) < 2.65:
@@ -4628,7 +4700,7 @@ This node is not available in the Blender version you are currently using.
 You may need a newer version of Blender for this material to work properly."""]
                 return
             print ("SCRIPT")
-            node = node_tree.nodes.new(node_type)
+            node = node_tree.nodes.new(blender267[node_type])
             node.mode = node_data['mode'].value
             if node_data['mode'].value == 'EXTERNAL':
                 if 'script' in node_data:
