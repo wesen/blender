@@ -80,15 +80,32 @@ def draw_menu_presets(self, context):
 def save_in_out_group_preset(fd, context):
     group = context.active_node.node_tree
 
+    input_node = None
+    output_node = None
+
+    for node in group.nodes:
+        if node.bl_idname == 'NodeGroupInput':
+            input_node = node
+        elif node.bl_idname == 'NodeGroupOutput':
+            output_node = node
+
+    if input_node is None:
+        print("Could not find input node")
+        return
+
+    if output_node is None:
+        print("Could not find output node")
+        return
+
     fd.write("# Inputs\n")
-    for input in group.inputs:
-        fd.write("Node_G.inputs.new(\"" + input.name + "\", '" + input.type
-                 + "')\n")
+    for input in input_node.outputs:
+        if input.bl_idname != 'NodeSocketVirtual':
+            fd.write("Node_G.inputs.new(\"" + input.bl_idname + "\", '" + input.name + "')\n")
 
     fd.write("# Outputs\n")
-    for output in group.outputs:
-        fd.write("Node_G.outputs.new(\"" + output.name + "\", '" + output.type
-                 + "')\n")
+    for output in output_node.inputs:
+        if output.bl_idname != 'NodeSocketVirtual':
+            fd.write("Node_G.outputs.new(\"" + output.bl_idname + "\", '" + output.name + "')\n")
 
 
 #def save_property_node_group_preset(fd, context, name_node):
@@ -102,7 +119,7 @@ def save_nodes_group_preset(fd, context):
     for node in group.nodes:
         i += 1
         name_node = "Node_" + str(i)
-        fd.write(name_node + " = Node_G.nodes.new('" + node.type +
+        fd.write(name_node + " = Node_G.nodes.new('" + node.bl_idname +
                  "')\n")
 
         if node.hide is not False:
@@ -281,15 +298,8 @@ class NODE_EDITOR_PT_save_in_preset(bpy.types.Operator):
         sg_category = self.sg_category
         sg_author = self.sg_author
         sg_name = context.active_node.node_tree.name
-
-        if view.tree_type == 'ShaderNodeTree':
-            type = 'SHADER'
-
-        if view.tree_type == 'TextureNodeTree':
-            type = 'TEXTURE'
-
-        if view.tree_type == 'CompositorNodeTree':
-            type = 'COMPOSITE'
+        type = view.tree_type
+        group_type = type.replace("Tree", "Group")
 
         print("saving preset to %s in folder %s" % (self.file_path, presets_folder))
         try:
@@ -327,7 +337,8 @@ class NODE_EDITOR_PT_save_in_preset(bpy.types.Operator):
         save_links_group_preset(fd, context, dict_name_nodes)
         fd.write("\n")
         fd.write("# *** View Group in the Node Editor ***\n")
-        fd.write("Tree.nodes.new(\"GROUP\", group = Node_G)\n")
+        fd.write("g = Tree.nodes.new(\"%s\")\n" % group_type)
+        fd.write("g.node_tree = Node_G\n")
         fd.close()
         self.report({'INFO'}, "Preset Created!")
         return {'FINISHED'}

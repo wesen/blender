@@ -20,14 +20,20 @@ Node_4 = Node_G.nodes.new('CompositorNodeMixRGB')
 Node_4.location = (600, 100)
 Node_4.blend_type = 'COLOR'
 
-Node_G.inputs.new("Source", 'RGBA')
-Node_G.outputs.new("Result", 'RGBA')
+Node_input = Node_G.nodes.new('NodeGroupInput')
+Node_output = Node_G.nodes.new('NodeGroupOutput')
+
+Node_G.inputs.new("NodeSocketColor", 'Source')
+Node_G.outputs.new("NodeSocketColor", 'Result')
+
 Node_G.links.new(Node_1.outputs[0], Node_2.inputs[1])
 Node_G.links.new(Node_2.outputs[0], Node_3.inputs[1])
 Node_G.links.new(Node_3.outputs[0], Node_4.inputs[0])
 Node_G.links.new(Node_2.outputs[0], Node_4.inputs[1])
 Node_G.links.new(Node_1.outputs[0], Node_4.inputs[2])
-Node_G.links.new(Node_G.inputs[0], Node_1.inputs[0])
-Node_G.links.new(Node_G.outputs[0], Node_4.outputs[0])
 
-Tree.nodes.new("GROUP", group = Node_G)
+Node_G.links.new(Node_input.outputs[0], Node_1.inputs[0])
+Node_G.links.new(Node_output.inputs[0], Node_4.outputs[0])
+
+g = Tree.nodes.new("CompositorNodeGroup")
+g.node_tree = Node_G
