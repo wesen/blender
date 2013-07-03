@@ -70,7 +70,7 @@ def Div_Description(desc, width):
 
 
 def filter_py(ext):
-    return (ext == ".py")
+    return ext == ".py"
 
 
 def draw_menu_presets(self, context):
@@ -105,19 +105,19 @@ def save_nodes_group_preset(fd, context):
         fd.write(name_node + " = Node_G.nodes.new('" + node.type +
                  "')\n")
 
-        if (node.hide is not False):
+        if node.hide is not False:
             fd.write(name_node + ".hide = True\n")
 
-        if (node.label != ''):
+        if node.label != '':
             fd.write(name_node + ".label = \"" + node.label + "\"\n")
 
         fd.write(name_node + ".location = (" + str(node.location[0]) + ", " +
                  str(node.location[1]) + ")\n")
 
-        if (node.mute is not False):
+        if node.mute is not False:
             fd.write(name_node + ".mute = True\n")
 
-        if (node.use_custom_color is not False):
+        if node.use_custom_color is not False:
             fd.write(name_node + ".use_custom_color = True\n")
             fd.write(name_node + ".color = (" + str(node.color[0]) + ", " +
                      str(node.color[1]) + ", " + str(node.color[2]) + ")\n")
@@ -141,51 +141,51 @@ def save_links_group_preset(fd, context, dict_name):
     group = context.active_node.node_tree
 
     for link in group.links:
-        if (link.from_node is not None):
+        if link.from_node is not None:
             name_from = link.from_node.name
         else:
             dict_name['Node_G'] = 'Node_G'
             name_from = 'Node_G'
 
-        if (link.to_node is not None):
+        if link.to_node is not None:
             name_to = link.to_node.name
         else:
             dict_name['Node_G'] = 'Node_G'
             name_to = 'Node_G'
 
         i = 0
-        if (link.from_node is not None):
+        if link.from_node is not None:
             for output in link.from_node.outputs:
-                if (output != link.from_socket):
+                if output != link.from_socket:
                     i += 1
                 else:
                     break
         else:
             for in_gr in group.inputs:
-                if (link.from_socket != in_gr):
+                if link.from_socket != in_gr:
                     i += 1
                 else:
                     break
 
         j = 0
-        if (link.to_node is not None):
+        if link.to_node is not None:
             for input in link.to_node.inputs:
-                if (input != link.to_socket):
+                if input != link.to_socket:
                     j += 1
                 else:
                     break
         else:
             for out_gr in group.outputs:
-                if (link.to_socket != out_gr):
+                if link.to_socket != out_gr:
                     j += 1
                 else:
                     break
 
         str_out = ".outputs["
         str_in = ".inputs["
-        if (dict_name[name_from] == 'Node_G'):
+        if dict_name[name_from] == 'Node_G':
             str_out = ".inputs["
-        if (dict_name[name_to] == 'Node_G'):
+        if dict_name[name_to] == 'Node_G':
             str_in = ".outputs["
         fd.write("Node_G.links.new(" + dict_name[name_from] + str_out +
                  str(i) + "], " + dict_name[name_to] + str_in + str(j) +
@@ -216,7 +216,7 @@ class PresetPreview(bpy.types.Operator):
         if "preset_preview" not in D.textures:
             D.textures.new("preset_preview", "IMAGE")
 
-        if (D.textures["preset_preview"].image != D.images[image_name]):
+        if D.textures["preset_preview"].image != D.images[image_name]:
             D.textures["preset_preview"].image = D.images[image_name]
 
         #Do everything possible to get Blender to reload the preview.
@@ -245,7 +245,7 @@ class NODE_EDITOR_PT_ViewPreset(bpy.types.Operator):
         if "preset_preview" in D.textures:
             D.textures.remove(D.textures[0])
         bpy.ops.node.presetpreview(previewPath=self.typePath)
-        if (len(preview_msg) > 1):
+        if len(preview_msg) > 1:
             self.report({preview_msg[0]}, preview_msg[1])
         return {'FINISHED'}
 
@@ -282,13 +282,13 @@ class NODE_EDITOR_PT_save_in_preset(bpy.types.Operator):
         sg_author = self.sg_author
         sg_name = context.active_node.node_tree.name
 
-        if (view.tree_type == 'ShaderNodeTree'):
+        if view.tree_type == 'ShaderNodeTree':
             type = 'SHADER'
 
-        if (view.tree_type == 'TextureNodeTree'):
+        if view.tree_type == 'TextureNodeTree':
             type = 'TEXTURE'
 
-        if (view.tree_type == 'CompositorNodeTree'):
+        if view.tree_type == 'CompositorNodeTree':
             type = 'COMPOSITE'
 
         print("saving preset to %s in folder %s" % (self.file_path, presets_folder))
@@ -336,22 +336,22 @@ class NODE_EDITOR_PT_save_in_preset(bpy.types.Operator):
         view = context.space_data
         sg_name = context.active_node.node_tree.name
 
-        if (sg_name == ''):
+        if sg_name == '':
             self.report({'ERROR'}, "Enter the name of the new preset")
             return {'CANCELLED'}
 
-        if ((sg_name[0:9] == 'NodeGroup') or (sg_name[0:8] == 'Untitled')):
+        if (sg_name[0:9] == 'NodeGroup') or (sg_name[0:8] == 'Untitled'):
             self.report({'ERROR'}, "Unable to call the group \"NodeGroup\" or"
                         " \"Untitled\"")
             return {'CANCELLED'}
 
-        if (view.tree_type == 'ShaderNodeTree'):
+        if view.tree_type == 'ShaderNodeTree':
             self.path = presets_folder + os.sep + "shader"
 
-        if (view.tree_type == 'TextureNodeTree'):
+        if view.tree_type == 'TextureNodeTree':
             self.path = presets_folder + os.sep + "texture"
 
-        if (view.tree_type == 'CompositorNodeTree'):
+        if view.tree_type == 'CompositorNodeTree':
             self.path = presets_folder + os.sep + "compositing"
 
         self.file_path = (self.path + os.sep +
@@ -359,7 +359,7 @@ class NODE_EDITOR_PT_save_in_preset(bpy.types.Operator):
 
         print("invoked, tree type: %s, path %s filepath %s" % (view.tree_type, self.path, self.file_path))
 
-        if (os.path.exists(self.file_path) is True):
+        if os.path.exists(self.file_path) is True:
             self.report({'ERROR'}, "The name of the preset you want to save is"
                         " already in the list. Change it!")
             return {'CANCELLED'}
@@ -398,7 +398,7 @@ class NODE_EDITOR_PT_preset(bpy.types.Panel):
     @classmethod
     def poll(cls, context):
         view = context.space_data
-        return (view) and (view.id.use_nodes)
+        return view and view.id.use_nodes
 
     def draw(self, context):
         global prec_preset
@@ -416,34 +416,34 @@ class NODE_EDITOR_PT_preset(bpy.types.Panel):
 
         col = layout.column(align=True)
 
-        if (view.tree_type == 'ShaderNodeTree') and (view.id.use_nodes):
+        if (view.tree_type == 'ShaderNodeTree') and view.id.use_nodes:
             dir = [presets_folder + os.sep + "shader"]
             path = presets_folder + os.sep + "shader"
             NODE_EDITOR_MT_presets.presetsPath = dir
-            if (prec_tree_type != 'ShaderNodeTree'):
+            if prec_tree_type != 'ShaderNodeTree':
                 NODE_EDITOR_MT_presets.bl_label = "Group Presets"
                 prec_tree_type = 'ShaderNodeTree'
 
-        if (view.tree_type == 'TextureNodeTree') and (view.id.use_nodes):
+        if (view.tree_type == 'TextureNodeTree') and view.id.use_nodes:
             dir = [presets_folder + os.sep + "texture"]
             path = presets_folder + os.sep + "texture"
             NODE_EDITOR_MT_presets.presetsPath = dir
-            if (prec_tree_type != 'TextureNodeTree'):
+            if prec_tree_type != 'TextureNodeTree':
                 NODE_EDITOR_MT_presets.bl_label = "Group Presets"
                 prec_tree_type = 'TextureNodeTree'
 
-        if (view.tree_type == 'CompositorNodeTree') and (view.id.use_nodes):
+        if (view.tree_type == 'CompositorNodeTree') and view.id.use_nodes:
             dir = [presets_folder + os.sep + "compositing"]
             path = presets_folder + os.sep + "compositing"
             NODE_EDITOR_MT_presets.presetsPath = dir
-            if (prec_tree_type != 'CompositorNodeTree'):
+            if prec_tree_type != 'CompositorNodeTree':
                 NODE_EDITOR_MT_presets.bl_label = "Group Presets"
                 prec_tree_type = 'CompositorNodeTree'
 
         col.menu("NODE_EDITOR_MT_presets",
                  text=NODE_EDITOR_MT_presets.bl_label)
 
-        if (NODE_EDITOR_MT_presets.bl_label != "Group Presets"):
+        if NODE_EDITOR_MT_presets.bl_label != "Group Presets":
             if show_info_preset:
                 col.operator("node.viewpreset", text="Show Info",
                              icon='INFO').typePath = path
@@ -452,7 +452,7 @@ class NODE_EDITOR_PT_preset(bpy.types.Panel):
                 layout.separator()
                 col = layout.column()
 
-                if (len(preview_msg) == 0):
+                if len(preview_msg) == 0:
                     row = col.row()
                     row.label("Preview:", icon='SEQ_PREVIEW')
 
@@ -464,21 +464,21 @@ class NODE_EDITOR_PT_preset(bpy.types.Panel):
 
                 row = col.row()
                 row.label("Author: ", icon='GREASEPENCIL')
-                if (type(author).__name__ == 'str'):
+                if type(author).__name__ == 'str':
                     row.label(author)
 
                 row = col.row()
                 row.label("Category: ", icon='SORTALPHA')
-                if (type(cat).__name__ == 'str'):
+                if type(cat).__name__ == 'str':
                     row.label(cat)
 
                 col.label("Description: ", icon='INFO')
-                if (type(desc).__name__ == 'str'):
+                if type(desc).__name__ == 'str':
                     l_desc = Div_Description(desc, context.region.width)
                     for line_s in l_desc:
                         col.label(line_s)
 
-            if (prec_preset != NODE_EDITOR_MT_presets.bl_label):
+            if prec_preset != NODE_EDITOR_MT_presets.bl_label:
                 show_info_preset = True
                 prec_preset = NODE_EDITOR_MT_presets.bl_label
                 preview_msg = []
