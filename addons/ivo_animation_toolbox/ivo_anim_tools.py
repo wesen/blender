@@ -390,7 +390,8 @@ class add_SRT_to_keying_set(bpy.types.Operator):
         return {'FINISHED'}
 
 class jump_first_frame(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "scene.jump_first_frame"
     bl_label = "Jump to first frame"
 
@@ -403,7 +404,8 @@ class jump_first_frame(bpy.types.Operator):
         return {'FINISHED'}
 
 class jump_last_frame(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "scene.jump_last_frame"
     bl_label = "Jump to last frame"
 
@@ -514,7 +516,8 @@ class ivo_calc_motion_paths(bpy.types.Operator):
         return {'FINISHED'}
 
 class ivo_armature_show_all_layers(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "object.ivo_armature_show_all_layers"
     bl_label = "Show all am Layers"
 
@@ -578,7 +581,8 @@ def func_cycle_armature_layer(ob, increment=1):
     ob.data.layers = layer
 
 class next_armature_layer(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "object.next_armature_layer"
     bl_label = "next_armature_layer"
 
@@ -593,7 +597,8 @@ class next_armature_layer(bpy.types.Operator):
         return ('FINISHED')
 
 class prev_armature_layer(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "object.prev_armature_layer"
     bl_label = "prev_armature_layer"
 
@@ -988,7 +993,8 @@ class posebone_toggle_constraints(bpy.types.Operator):
 
 
 class xraytoggle(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "object.xraytoggle"
     bl_label = "Ivo X-Ray toggle"
 
@@ -1042,7 +1048,8 @@ class ivo_reset_all_transforms(bpy.types.Operator):
         return ('FINISHED')
 
 class ivo_armature_show_all_layers(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "object.ivo_armature_show_all_layers"
     bl_label = "Show all am Layers"
 
@@ -1059,7 +1066,8 @@ class ivo_armature_show_all_layers(bpy.types.Operator):
 
 
 class draw_axis_toggle(bpy.types.Operator):
-    ''''''
+    '''
+    '''
     bl_idname = "armature.draw_axis_toggle"
     bl_label = "Show axes"
 
