@@ -1,0 +1,19 @@
+# *** run each of these in its own terminal! ***
+
+
+# start the farm
+/shared/software/render_farm/new_master.py
+
+# start the avi generator
+/shared/software/render_farm/master_avi_gen__loop.sh
+
+# start slideshow generator
+/shared/software/render_farm/slideshow/preview_images_update.py
+
+# update the farm blender build
+/shared/bin/blender_local_update_farm.sh
+
+# not essential but we often keep a VNC desktop
+# with MULTI-SSH running with our farm nodes
+# (blender institute spesific)
+/shared/bin/ssh_justa.py

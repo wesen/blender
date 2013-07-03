@@ -1,0 +1,254 @@
+body {
+	background-color:#3f3c3c;
+	color: #cdc;
+	font-size:11px;
+	font-family: "Lucida Sans","Lucida Sans Unicode","Lucida Grande",Lucida,sans-serif;
+	cursor: default;
+}
+a {
+	text-decoration:none;
+	color:#cc7733;
+}
+a:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+h1 {
+       font-size:100%;
+       float:right;
+       display: none;
+}
+
+h2 {
+    font-size:120%;
+    margin: 1px; 
+    color: #aaa;
+
+}
+
+h2 img {
+    display:block;
+/*    border: thin solid #777; */
+    margin-bottom:4px;
+}
+
+
+h3 {
+	font-family: Ubuntu;
+       clear:both;
+        font-size:200%;
+	letter-spacing: -1px;
+        margin: 2px 0 5px 0;
+	color: #8e9864;
+}
+
+hr {
+       clear: both;
+       background-color: #333;
+       height:1px;
+       border:0;
+       width: 100%;
+       margin: 20px auto;
+}
+
+#container {
+	margin: 5px auto;
+	width: 1145px;
+}
+
+button {
+	color: #111;
+	width: auto;
+	height: auto;
+
+}
+
+.centered {
+       text-align: center;
+}
+
+.toggle {
+	text-decoration: underline;
+}
+
+.cache {
+	display: none;
+}
+
+.fluid {
+	display: none;
+}
+
+.rules {
+	width: 60em;
+	text-align: left;
+}
+
+img.thumb {
+	display: none;
+
+}
+
+span.thumb {
+	text-decoration: underline;
+
+}
+
+input {
+	background-color: #272525;
+	color: #ccc;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	border: thin solid #555;
+	padding: 5px;
+
+}
+
+input:hover, input:focus {
+       background-color: #222;
+}
+
+input:disabled {
+	color: #555;
+}
+
+#clearall {
+       clear:both;
+}
+
+table {
+
+    border-color: #1c1c1c;
+    border-spacing: 0px;
+    border-collapse:collapse;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    font-size: 120%;
+}
+
+#table-jobs {
+    //background-color: #333;
+    width: 100%;
+    color: #aaa;
+}
+
+#table-jobs td {
+    border-bottom: thin dashed #222;
+    word-wrap: break-word;
+    padding: 0px 0px 0px 5px;
+}
+
+#td-toggle {
+       width: 12px !important;
+       //background-color: #333 ;
+       text-align: center;
+       padding: 1px 10px 1px 0px;
+}
+
+#td-toggle:hover {
+       background-color: #2b2929;
+}
+
+thead{
+       font-size:80%;
+	color: #aca;
+	padding: 0px;
+    //background-color: #111 !important;
+}
+
+tr {
+	letter-spacing: -1px;
+	//background-color: #101313; 
+}
+
+tr:hover {
+       background-color: #2b2929 !important;
+       color: #fff;
+}
+
+.job-dir {color: #666}
+.job-file {font-weight: solid}
+
+.job-add{
+    width:140px;
+    font-weight: bold;
+    border: 2px solid #500;
+    background: #4C0E0E;
+    cursor: pointer;
+    padding:2px;
+    margin-left:10px;
+}
+
+.job-add:hover{
+    border: 2px solid #800;
+    background: #b11;
+       color: #fff;
+}
+
+#status-disabled {
+	text-align:center;
+	background-color: #770000 !important;
+	color: #b54141 !important;
+
+}
+#status-disabled:hover {
+	background-color: #990000 !important;
+}
+
+#status-inprogress {
+	text-align:center;
+	background-color: #e0ae28 !important;
+	color: #fff;
+	//border: thin dashed #000;
+}
+
+#status-inprogress:hover {
+	background-color: #d39222 !important;
+}
+
+#status-done {
+	text-align:center;
+	background-color: #84ac50 !important;
+	color: #fff;
+	font-weight: bold;
+}
+
+#status-done:hover {
+	background-color: #719344 !important;
+}
+
+#latest-render {
+    float:left;
+    width: 600px;
+    margin: auto;
+}
+
+#latest-render img{
+    border: 5px solid #312f2f;
+    margin: auto;
+}
+
+#progressbars {
+    float:right;
+    width: 500px;
+    position: relative;
+    left:-115;
+}
+
+#extrainfo-recentcommits{
+	float:left;
+    width: 505px;
+    margin-bottom: 50px;
+    margin-left: 20px
+}
+#extrainfo-farmprogress{
+    float:left;
+    width: 505px;
+    margin-left: 20px
+}
+#extrainfo-monitor{
+    float:left;
+    width: 180px;
+    border-left: #222 thin solid;
+    padding-left: 20px;
+}

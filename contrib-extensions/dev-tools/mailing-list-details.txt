@@ -1,0 +1,17 @@
+This is the mailing list dedicated to commits:
+
+http://lists.blender.org/mailman/listinfo/bf-extensions-cvs 
+
+
+IMPORTANT
+-------------
+Please note that in order for your commits to go to the mailing list YOU HAVE TO SUBSCRIBE,
+otherwise no commit mail will be sent to the mailing list (it will wait for approval)
+and other devs won't be notified that a commit happened.
+
+
+PLEASE NOTE
+--------------
+We shold avoid to have direct discussions on this list, it is for commits only.
+Discussions on commits should happen on the single script/plugin tracker page.
+
